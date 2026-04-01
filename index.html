@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rajveer Singh | AI & Finance Portfolio</title>
+    <meta name="description" content="Interactive portfolio of Rajveer Singh — Finance & AI Architect. BBA Finance, AI Stock Analyzer, JPMorgan Virtual Intern.">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- ====== INTRO SCREEN ====== -->
+    <div id="intro-screen">
+        <canvas id="intro-particles"></canvas>
+        <div class="intro-content">
+            <div class="intro-emoji">👀</div>
+            <h1>Are you stalking me?</h1>
+            <p>It's okay, I won't judge... much.</p>
+            <div class="intro-buttons">
+                <button id="btn-no">No, just passing by</button>
+                <button id="btn-yes">Hell Yeah 🔥</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== LOADING SCREEN ====== -->
+    <div id="loading-screen" class="hidden">
+        <div class="loader-wrap">
+            <div class="money-rain" id="money-rain"></div>
+            <div class="loader-text">
+                <span class="rupee-spin">₹</span>
+                <span class="dollar-spin">$</span>
+                <span class="rupee-spin">€</span>
+            </div>
+            <p class="loader-msg">Crunching the numbers...</p>
+            <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        </div>
+    </div>
+
+    <!-- ====== MAIN DESKTOP ====== -->
+    <div id="app" class="hidden">
+        <canvas id="bg-canvas"></canvas>
+        <canvas id="particle-canvas"></canvas>
+
+        <!-- Pixel Mountains Background Layer -->
+        <div id="pixel-bg">
+            <div class="mountain-layer layer-1"></div>
+            <div class="mountain-layer layer-2"></div>
+            <div class="mountain-layer layer-3"></div>
+            <div class="stars" id="stars-container"></div>
+        </div>
+
+        <!-- Desktop Icons - Non-linear, scattered placement -->
+        <div id="desktop-area">
+            <div id="window-overlay" class="win-overlay"></div>
+
+            <div class="folder-icon" style="left: 60px; top: 40px;" data-window="about-win">
+                <div class="folder-img">
+                    <svg viewBox="0 0 60 50" class="folder-svg">
+                        <path d="M2 12h56v34H2z" fill="#fbbf24"/>
+                        <path d="M2 12l8-8h16l6 8" fill="#f59e0b"/>
+                        <path d="M2 12h56v4H2z" fill="#f59e0b"/>
+                    </svg>
+                </div>
+                <span>About Me</span>
+                <!-- Hover Window -->
+                <div class="hover-window win-wide" id="about-win">
+                    <div class="win-header" style="background: linear-gradient(90deg, #6366f1, #8b5cf6);">
+                        <span>ABOUT ME</span>
+                        <div class="win-dots"><button class="win-close" data-close="about-win">×</button></div>
+                    </div>
+                    <div class="win-body">
+                        <h3>Hey! I'm Rajveer Singh 👋</h3>
+                        <p>I sit at the intersection of <strong>Finance</strong> and <strong>Artificial Intelligence</strong>. Currently pursuing BBA Finance (Hons.) at Manipal University Jaipur, I don't just study markets—I build AI systems that analyze them autonomously.</p>
+                        <p>I've completed a virtual Investment Banking internship at <strong>JPMorgan Chase</strong> (Forage), where I worked on M&A, DCF valuation, and pitch deck creation using AI-assisted research tools. My Bloomberg Market Concepts certification gives me a strong foundation in Economic Indicators, Currencies, Fixed Income, and Equities—the real institutional stuff.</p>
+                        <p>My philosophy? <em>"Don't just analyze data. Build systems that analyze it for you."</em></p>
+                        <div class="win-tags">
+                            <span>🎯 Finance + AI</span>
+                            <span>📍 Jaipur, India</span>
+                            <span>🚀 Builder</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="folder-icon" style="left: 230px; top: 55px;" data-window="school-win">
+                <div class="folder-img">
+                    <svg viewBox="0 0 60 50" class="folder-svg">
+                        <path d="M2 12h56v34H2z" fill="#34d399"/>
+                        <path d="M2 12l8-8h16l6 8" fill="#10b981"/>
+                        <path d="M2 12h56v4H2z" fill="#10b981"/>
+                    </svg>
+                </div>
+                <span>School</span>
+                <div class="hover-window win-wide" id="school-win">
+                    <div class="win-header" style="background: linear-gradient(90deg, #10b981, #34d399);">
+                        <span>EDUCATION & CERTIFICATIONS</span>
+                        <div class="win-dots"><button class="win-close" data-close="school-win">×</button></div>
+                    </div>
+                    <div class="win-body">
+                        <div class="edu-item">
+                            <h4>🎓 BBA Finance (Hons.)</h4>
+                            <p class="edu-sub">Manipal University Jaipur — Expected July 2028</p>
+                            <p>Building a rock-solid foundation in commercial business, corporate finance, and quantitative analysis. Actively supplementing coursework with advanced AI and programming skills.</p>
+                        </div>
+                        <div class="edu-item">
+                            <h4>📊 Bloomberg Market Concepts (BMC)</h4>
+                            <p class="edu-sub">Bloomberg L.P. — March 2026</p>
+                            <p>Industry-recognized certification covering Economic Indicators, Currencies, Fixed Income, and Equities using the Bloomberg Terminal. The gold standard in finance.</p>
+                        </div>
+                        <div class="edu-item">
+                            <h4>📐 Fundamentals of Quantitative Modeling</h4>
+                            <p class="edu-sub">Wharton School (UPenn) — June 2025</p>
+                            <p>Probability models, regression analysis, Monte Carlo simulations, optimization techniques, and quantitative decision-making frameworks.</p>
+                        </div>
+                        <div class="edu-item">
+                            <h4>📈 Excel for Business (Intermediate + Essentials)</h4>
+                            <p class="edu-sub">Macquarie University, Australia — June 2025</p>
+                            <p>Advanced pivot tables, VLOOKUP/HLOOKUP, conditional formatting, data visualization, and financial modeling functions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="folder-icon" style="left: 420px; top: 35px;" data-window="skills-win">
+                <div class="folder-img">
+                    <svg viewBox="0 0 60 50" class="folder-svg">
+                        <path d="M2 12h56v34H2z" fill="#f472b6"/>
+                        <path d="M2 12l8-8h16l6 8" fill="#ec4899"/>
+                        <path d="M2 12h56v4H2z" fill="#ec4899"/>
+                    </svg>
+                </div>
+                <span>Skills</span>
+                <div class="hover-window win-wide" id="skills-win">
+                    <div class="win-header" style="background: linear-gradient(90deg, #ec4899, #f472b6);">
+                        <span>SKILL MATRIX</span>
+                        <div class="win-dots"><button class="win-close" data-close="skills-win">×</button></div>
+                    </div>
+                    <div class="win-body">
+                        <h4>💰 Finance & Analysis</h4>
+                        <div class="skill-bars">
+                            <div class="skill-row"><span>Financial Modeling & DCF</span><div class="bar"><div class="fill" style="width:90%; background:#10b981;"></div></div></div>
+                            <div class="skill-row"><span>Excel (Advanced)</span><div class="bar"><div class="fill" style="width:95%; background:#10b981;"></div></div></div>
+                            <div class="skill-row"><span>Equity Research</span><div class="bar"><div class="fill" style="width:80%; background:#10b981;"></div></div></div>
+                            <div class="skill-row"><span>Data Analysis</span><div class="bar"><div class="fill" style="width:85%; background:#10b981;"></div></div></div>
+                        </div>
+                        <h4 style="margin-top:1rem;">🤖 AI & Technology</h4>
+                        <div class="skill-bars">
+                            <div class="skill-row"><span>Python</span><div class="bar"><div class="fill" style="width:80%; background:#6366f1;"></div></div></div>
+                            <div class="skill-row"><span>AI Tools (Gemini/Claude/GPT)</span><div class="bar"><div class="fill" style="width:95%; background:#6366f1;"></div></div></div>
+                            <div class="skill-row"><span>Streamlit / Web Apps</span><div class="bar"><div class="fill" style="width:75%; background:#6366f1;"></div></div></div>
+                            <div class="skill-row"><span>Prompt Engineering</span><div class="bar"><div class="fill" style="width:90%; background:#6366f1;"></div></div></div>
+                        </div>
+                        <h4 style="margin-top:1rem;">🌐 Languages</h4>
+                        <div class="win-tags">
+                            <span>English (Native)</span><span>Hindi (Native)</span><span>French (Elementary)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="folder-icon" style="left: 620px; top: 50px;" data-window="projects-win">
+                <div class="folder-img">
+                    <svg viewBox="0 0 60 50" class="folder-svg">
+                        <path d="M2 12h56v34H2z" fill="#60a5fa"/>
+                        <path d="M2 12l8-8h16l6 8" fill="#3b82f6"/>
+                        <path d="M2 12h56v4H2z" fill="#3b82f6"/>
+                    </svg>
+                </div>
+                <span>Projects</span>
+                <div class="hover-window win-wide" id="projects-win">
+                    <div class="win-header" style="background: linear-gradient(90deg, #3b82f6, #60a5fa);">
+                        <span>PROJECTS</span>
+                        <div class="win-dots"><button class="win-close" data-close="projects-win">×</button></div>
+                    </div>
+                    <div class="win-body">
+                        <div class="project-card-v2">
+                            <div class="proj-badge">🚀 FLAGSHIP</div>
+                            <h3>AI Stock Analyzer</h3>
+                            <p class="proj-tech">Python · Streamlit · Google Gemini AI · yfinance · Pandas · Matplotlib</p>
+                            <p>A fully deployed, AI-powered stock analysis web application that accepts any company name, auto-resolves the stock ticker, and fetches live market data via Yahoo Finance.</p>
+                            <p>The app integrates <strong>Google Gemini 2.5 Flash AI</strong> to generate autonomous Buy / Hold / Sell recommendations, deep-research investment reports, and sentiment analysis from live news feeds.</p>
+                            <p>Features interactive dashboards with <strong>50/200-day moving averages</strong>, RSI indicators, volume analysis, and return distribution histograms. Also includes a downloadable Stock Valuation Model (Excel).</p>
+                            <p>Deployed on Streamlit Cloud with a dark-themed UI and robust rate-limit bypass using browser-like session headers and exponential backoff.</p>
+                            <div class="win-tags">
+                                <span>Live Demo ↗</span>
+                                <span>GitHub ↗</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="folder-icon" style="left: 810px; top: 40px;" data-window="games-win">
+                <div class="folder-img">
+                    <svg viewBox="0 0 60 50" class="folder-svg">
+                        <path d="M2 12h56v34H2z" fill="#fb923c"/>
+                        <path d="M2 12l8-8h16l6 8" fill="#f97316"/>
+                        <path d="M2 12h56v4H2z" fill="#f97316"/>
+                    </svg>
+                </div>
+                <span>Experiments</span>
+                <div class="hover-window win-wide" id="games-win">
+                    <div class="win-header" style="background: linear-gradient(90deg, #f97316, #fb923c);">
+                        <span>EXPERIMENTING & LEARNING</span>
+                        <div class="win-dots"><button class="win-close" data-close="games-win">×</button></div>
+                    </div>
+                    <div class="win-body">
+                        <div class="edu-item">
+                            <h4>🏦 JPMorgan Chase — Investment Banking Virtual Intern</h4>
+                            <p class="edu-sub">Forage Virtual Experience · Apr–May 2025</p>
+                            <p>Completed a full IB simulation covering M&A analysis, DCF valuation, pitch deck creation, and investment analysis—all leveraging AI-assisted research tools to accelerate deliverables.</p>
+                        </div>
+                        <div class="edu-item">
+                            <h4>🤖 Agentic AI Workflows</h4>
+                            <p>Actively building autonomous research pipelines using Google Gemini and Claude APIs. Exploring how LLMs can replace manual equity research by generating structured investment memos from raw financial data—automatically.</p>
+                        </div>
+                        <div class="edu-item">
+                            <h4>💡 AutoSell AI (Prototype)</h4>
+                            <p>A business intelligence tool for AI automation freelancers. Identifies operational gaps for local businesses, suggests AI solutions, estimates build time, provides sales pitches, and projects earning potential.</p>
+                        </div>
+                        <div class="edu-item">
+                            <h4>📊 Groww Financial Deep-Dive</h4>
+                            <p>Built a detailed 5-year financial model and complete business analysis for Groww's fintech ecosystem. Covered revenue projections, unit economics, and competitive positioning.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Side Panels (like reference) -->
+        <div id="side-panels">
+            <!-- World Clock Widget -->
+            <div class="side-widget clock-widget">
+                <div class="widget-header" style="background: linear-gradient(90deg, #a855f7, #c084fc);">WORLD CLOCK</div>
+                <div class="widget-body">
+                    <div class="clock-time" id="live-clock">00:00:00</div>
+                    <div class="clock-tabs">
+                        <button class="clock-tab active" data-tz="Asia/Kolkata">MUMBAI</button>
+                        <button class="clock-tab" data-tz="Asia/Dubai">DUBAI</button>
+                        <button class="clock-tab" data-tz="Europe/Paris">PARIS</button>
+                        <button class="clock-tab" data-tz="America/New_York">NEW YORK</button>
+                    </div>
+                    <div class="clock-label" id="clock-label">🇮🇳 India</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Panels -->
+        <div id="bottom-panels">
+            <!-- Now Playing -->
+            <div class="bottom-panel now-playing" style="width: 320px;">
+                <div class="panel-header" style="background: linear-gradient(90deg, #f97316, #fb923c);">
+                    <span>NOW PLAYING</span>
+                    <a href="https://open.spotify.com/track/4ly1QBXEwYoDmje9rmEgC4" target="_blank" class="spotify-link">
+                        <i data-lucide="external-link" style="width:10px;height:10px;"></i> Spotify
+                    </a>
+                </div>
+                <!-- Native Spotify Embed Player provided by user -->
+                <div style="padding: 10px;">
+                    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4ly1QBXEwYoDmje9rmEgC4?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+            </div>
+
+            <!-- Current Status -->
+            <div class="bottom-panel current-status">
+                <div class="panel-header" style="background: linear-gradient(90deg, #6366f1, #818cf8);">
+                    <span>CURRENT STATUS</span>
+                    <div class="win-dots"><i></i></div>
+                </div>
+                <div class="panel-body">
+                    <div class="music-icon">💼</div>
+                    <div>
+                        <small>Currently focused on</small>
+                        <strong>Building AI-powered Finance Tools & ESSEC MIM Prep</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Taskbar -->
+        <footer id="taskbar">
+            <div class="taskbar-left">
+                <a href="https://linkedin.com/in/rajveer-singh-a62b1834b" target="_blank" class="taskbar-btn">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="#0A66C2" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    LinkedIn
+                </a>
+                <a href="https://drive.google.com/file/d/193rLjHWyTMfPXdvb4r0q6OiyiA0IP022/view?usp=sharing" target="_blank" class="taskbar-btn"><i data-lucide="file-text"></i> View Resume</a>
+                <button id="lets-chat-btn" class="taskbar-btn"><i data-lucide="message-circle"></i> Let's Chat</button>
+                <a href="https://github.com" target="_blank" class="taskbar-btn">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
+                </a>
+            </div>
+            <div class="taskbar-right">
+                <span id="taskbar-clock">20:57</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="clipboard-toast" class="clipboard-toast">
+        Email copied to clipboard! 🚀
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
