@@ -163,6 +163,9 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.appendChild(win);
         });
 
+        const windows = document.querySelectorAll('.hover-window');
+        overlay.style.zIndex = '9000'; // Default high z-index
+
         function closeAllWindows() {
             document.querySelectorAll('.hover-window.open').forEach(win => {
                 win.classList.remove('open');
@@ -171,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         folders.forEach(folder => {
-            folder.addEventListener('click', (e) => {
+            const openWindow = (e) => {
                 // Prevent click on the hover-window inside from triggering again
                 if (e.target.closest('.hover-window')) return;
                 
@@ -185,7 +188,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     overlay.style.zIndex = highestZ - 1;
                     overlay.classList.add('open');
                 }
-            });
+            };
+            folder.addEventListener('click', openWindow);
+            folder.addEventListener('touchend', (e) => {
+                // If it was a quick tap, trigger openWindow
+                // But avoid double-trigger with click
+                if (!e.cancelable) return; 
+            }, { passive: true });
         });
 
         closes.forEach(btn => {
@@ -243,10 +252,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let mouseX = canvas.width / 2, mouseY = canvas.height / 2;
 
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
+        const updateCoords = (e) => {
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            mouseX = clientX;
+            mouseY = clientY;
+        };
+
+        document.addEventListener('mousemove', updateCoords, { passive: true });
+        document.addEventListener('touchmove', updateCoords, { passive: true });
+        document.addEventListener('touchstart', updateCoords, { passive: true });
 
         const particles = [];
         const count = window.innerWidth < 768 ? 30 : 70;
@@ -372,14 +387,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // ======= PARALLAX ON MOUSE MOVE =======
     function initParallax() {
         const layers = document.querySelectorAll('.mountain-layer');
-        document.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 2;
-            const y = (e.clientY / window.innerHeight - 0.5) * 2;
+        const updateParallax = (e) => {
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            const x = (clientX / window.innerWidth - 0.5) * 2;
+            const y = (clientY / window.innerHeight - 0.5) * 2;
             layers.forEach((layer, i) => {
                 const depth = (i + 1) * 8;
                 layer.style.transform = `translateX(${x * depth}px) translateY(${y * (depth * 0.3)}px)`;
             });
-        });
+        };
+        document.addEventListener('mousemove', updateParallax, { passive: true });
+        document.addEventListener('touchmove', updateParallax, { passive: true });
     }
 
     // ======= CLIPBOARD LOGIC =======
