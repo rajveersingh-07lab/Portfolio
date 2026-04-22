@@ -287,8 +287,23 @@ body {
 
 /* ============ SIDE PANELS ============ */
 #side-panels {
-    position: absolute; top: 30px; right: 30px; z-index: 5;
-    display: flex; flex-direction: column; gap: 20px; width: 240px;
+    position: relative;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    padding: 0 20px;
+    margin-top: 20px;
+}
+
+@media (min-width: 1025px) {
+    #side-panels {
+        position: absolute; top: 30px; right: 30px;
+        width: 240px;
+        padding: 0;
+        margin-top: 0;
+    }
 }
 
 .side-widget {
@@ -443,7 +458,27 @@ body {
         padding: 60px 20px 20px 20px;
         justify-items: center;
     }
-    #side-panels { display: none; }
+    /* World clock is now visible on mobile — no display:none */
+    #side-panels {
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 0 20px;
+        margin-top: 16px;
+    }
+    .side-widget {
+        flex: 1 1 280px;
+        max-width: 100%;
+    }
+    .clock-tabs {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+    }
+    .clock-tab {
+        flex: unset;
+        font-size: 0.6rem;
+        padding: 6px 4px;
+    }
     .folder-icon { 
         position: relative !important; 
         left: auto !important; 
